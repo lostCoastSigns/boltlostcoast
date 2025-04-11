@@ -33,18 +33,6 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 py-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="card p-8 text-center group">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-indigo-100 flex items-center justify-center
-              group-hover:bg-indigo-600 transition-colors duration-300">
-              <Star className="h-8 w-8 text-indigo-600 group-hover:text-white transition-colors duration-300" />
-            </div>
-            <h3 className="text-2xl font-semibold mb-4">Premium Quality</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Durable vinyl stickers that withstand water, sunlight, and scratches.
-              Built to last and maintain their vibrant colors.
-            </p>
-          </div>
-
-          <div className="card p-8 text-center group">
             <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-100 flex items-center justify-center
               group-hover:bg-purple-600 transition-colors duration-300">
               <Type className="h-8 w-8 text-purple-600 group-hover:text-white transition-colors duration-300" />
