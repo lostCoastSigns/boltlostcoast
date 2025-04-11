@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center">
-            <img src="your_logo_url_here" alt="Lost Coast Signs &amp; Swag" className="h-12" />
+            <img src="https://drive.google.com/file/d/1JYZd8wBko-bSFbF_UbH2oWVre6qwEr3S/view?usp=sharing" alt="Lost Coast Signs &amp; Swag" className="h-12" />
           </Link>
           
           <div className="flex items-center space-x-4">

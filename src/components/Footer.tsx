@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Pinterest } from 'lucide-react';
+import { Facebook, Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -36,9 +36,6 @@ const Footer = () => {
               </a>
               <a href="#" className="text-gray-500 hover:text-indigo-600 transition-colors">
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-500 hover:text-indigo-600 transition-colors">
-                <Pinterest className="h-5 w-5" />
               </a>
             </div>
           </div>
