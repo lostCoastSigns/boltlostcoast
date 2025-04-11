@@ -30,7 +30,7 @@ const Navbar = () => {
               <Sticker className="h-6 w-6 text-indigo-600 group-hover:text-white transition-colors duration-300" />
             </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-              Lost Coast Signs &amp; Swag
+              StickerStore
             </span>
           </Link>
           
