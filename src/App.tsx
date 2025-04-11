@@ -8,6 +8,7 @@ import Shop from './pages/Shop';
 import CustomSticker from './pages/CustomSticker';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
+import Footer from './components/Footer'; // Import the Footer component
 
 // Protected route component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -45,6 +46,7 @@ function AppContent() {
         </Routes>
       </main>
       <Toaster position="bottom-right" />
+      <Footer /> {/* Include the Footer component */}
     </div>
   );
 }
