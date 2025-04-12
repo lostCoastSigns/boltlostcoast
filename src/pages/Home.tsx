@@ -140,18 +140,6 @@ const Home = () => {
             <Link to="/" className="text-indigo-600 hover:text-indigo-800 mt-4 inline-block">Learn more here</Link>
           </div>
         </div>
-
-        <div className="mt-24 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust us with their sticker needs.
-            Your satisfaction is our top priority.
-          </p>
-          <Link to="/shop" className="btn-primary">
-            <Sticker className="mr-2 h-5 w-5" />
-            Explore Our Collection
-          </Link>
-        </div>
       </div>
     </div>
   );

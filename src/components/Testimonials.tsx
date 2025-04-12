@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
 interface Testimonial {
@@ -49,6 +49,8 @@ const Testimonials: React.FC = () => {
     },
   ]);
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+
   const goToPreviousTestimonial = () => {
     setCurrentTestimonialIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1));
   };
@@ -65,23 +67,33 @@ const Testimonials: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  // Ensure the slider is scrolled to the correct position on index change
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollTo({
+        left: currentTestimonialIndex * sliderRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentTestimonialIndex]);
+
   return (
     <div className="relative py-16 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">What Our Customers Say</h2>
         <div className="relative">
-          <div className="transition-transform duration-500" style={{ transform: `translateX(-${currentTestimonialIndex * 100}%)` }}>
-            <div className="flex overflow-hidden">
+          <div className="overflow-x-auto scroll-smooth" ref={sliderRef}>
+            <div className="flex snap-x gap-4 py-4">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-white rounded-lg shadow-md p-6">
-                    <div className="flex items-center mb-2">
+                <div key={index} className="snap-start w-full flex-shrink-0 px-4">
+                  <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div className="flex items-center justify-center mb-2">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 text-yellow-500" />
                       ))}
                     </div>
                     <p className="text-gray-700 italic mb-4">"{testimonial.text}"</p>
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-center">
                       <div className="ml-3">
                         <p className="text-gray-900 font-semibold">{testimonial.author}</p>
                         {testimonial.title && <p className="text-gray-600">{testimonial.title}</p>}
