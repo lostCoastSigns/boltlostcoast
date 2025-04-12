@@ -4,12 +4,12 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Shop from './pages/Shop';
-// import CustomSticker from './pages/CustomSticker'; // Old import
-import RequestQuotePage from './pages/RequestQuotePage'; // New import
-import Cart from './pages/Cart';
-import Orders from './pages/Orders';
-import Footer from './components/Footer'; 
+// import Shop from './pages/Shop'; // Old shop page
+import ShopHome from './pages/ShopHome'; // New Shop Home Page
+import RequestQuotePage from './pages/RequestQuotePage';
+// import Cart from './pages/Cart'; // Commented out for now
+// import Orders from './pages/Orders'; // Commented out for now
+import Footer from './components/Footer';
 
 // Import Service Pages
 import CustomPrinting from './pages/services/CustomPrinting';
@@ -21,6 +21,12 @@ import Decals from './pages/services/Decals';
 import VehicleWraps from './pages/services/VehicleWraps';
 import GraphicDesign from './pages/services/GraphicDesign';
 import Embroidery from './pages/services/Embroidery';
+
+// Placeholder pages for shop structure (implement later)
+const ProductCategoryPage: React.FC = () => <div className="container mx-auto p-4">Category Page Placeholder</div>;
+const ProductDetailPage: React.FC = () => <div className="container mx-auto p-4">Product Detail Page Placeholder</div>;
+const CheckoutPage: React.FC = () => <div className="container mx-auto p-4">Checkout Page Placeholder</div>;
+
 
 // Protected route component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -41,13 +47,26 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      <main className="flex-grow"> {/* Removed container/padding here to allow full-width hero */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          {/* Updated route to use the new component */}
-          <Route path="/custom" element={<RequestQuotePage />} /> 
-          {/* <Route path="/cart" element={<Cart />} /> */} 
+
+          {/* --- Shop Routes --- */}
+          <Route path="/shop" element={<ShopHome />} />
+          <Route path="/shop/all" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/vehicle-graphics" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/novelty" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/business" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/home-gifts" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/staff-picks" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/seasonal" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/templates" element={<ProductCategoryPage />} /> {/* Placeholder */}
+          <Route path="/shop/product/:productId" element={<ProductDetailPage />} /> {/* Placeholder */}
+          <Route path="/checkout" element={<CheckoutPage />} /> {/* Placeholder */}
+          {/* --- End Shop Routes --- */}
+
+          <Route path="/custom" element={<RequestQuotePage />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
           {/* <Route
             path="/orders"
             element={
@@ -55,7 +74,7 @@ function AppContent() {
                 <Orders />
               </ProtectedRoute>
             }
-          /> */} 
+          /> */}
 
           {/* Service Routes */}
           <Route path="/services/custom-printing" element={<CustomPrinting />} />
@@ -71,7 +90,7 @@ function AppContent() {
         </Routes>
       </main>
       <Toaster position="bottom-right" />
-      <Footer /> 
+      <Footer />
     </div>
   );
 }

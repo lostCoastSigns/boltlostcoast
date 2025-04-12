@@ -1,56 +1,52 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, Image, Ruler, Package, FileText, MessageSquare, Tag, User, Mail, Phone, Building, MapPin } from 'lucide-react'; // Added User, Mail, Phone, Building, MapPin
+import { Upload, Image, Ruler, Package, FileText, MessageSquare, Tag, User, Mail, Phone, Building, MapPin } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import type { CustomSticker } from '../types';
 import { toast } from 'react-hot-toast';
 
 const RequestQuotePage = () => {
-  // New state variables for contact info
+  // Contact info state
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [phone, setPhone] = React.useState(''); // Phone is now required
   const [companyName, setCompanyName] = React.useState('');
   const [cityState, setCityState] = React.useState('');
 
-  // Existing state variables
+  // Project details state
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = React.useState<string>('');
-  const [dimensions, setDimensions] = React.useState(''); // Default to empty for broader use
-  const [quantity, setQuantity] = React.useState<number | string>(1); // Default to 1, allow string for empty input
+  const [dimensions, setDimensions] = React.useState('');
+  const [quantity, setQuantity] = React.useState<number | string>(1);
   const [serviceType, setServiceType] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
 
   const navigate = useNavigate();
-  // Note: Cart functionality might need adjustment if this page is purely for quotes now.
-  // const addItem = useCartStore((state) => state.addItem);
 
   const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file size (adjust as needed)
-    if (file.size > 10 * 1024 * 1024) { // Increased to 10MB
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
       toast.error('File size must be less than 10MB');
       return;
     }
 
     setSelectedFile(file);
-    // Only generate preview URL if it's an image
     if (file.type.startsWith('image/')) {
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
     } else {
-      setPreviewUrl(''); // Clear preview for non-image files
+      setPreviewUrl('');
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add validation for new required fields
-    if (!name || !email) {
-      toast.error('Please fill in your Name and Email');
+    // Updated validation to include phone
+    if (!name || !email || !phone) {
+      toast.error('Please fill in your Name, Email, and Phone Number');
       return;
     }
     if (!serviceType) {
@@ -64,42 +60,24 @@ const RequestQuotePage = () => {
 
     setIsLoading(true);
     try {
-      // --- Quote Submission Logic ---
       const formData = new FormData();
-      // Add new fields to formData
       formData.append('name', name);
       formData.append('email', email);
       formData.append('phone', phone);
       formData.append('companyName', companyName);
       formData.append('cityState', cityState);
-      // Existing fields
       formData.append('serviceType', serviceType);
       formData.append('description', description);
-      formData.append('dimensions', dimensions); // Include if relevant for the service
-      formData.append('quantity', quantity.toString()); // Include if relevant
+      formData.append('dimensions', dimensions);
+      formData.append('quantity', quantity.toString());
       if (selectedFile) {
         formData.append('designFile', selectedFile);
       }
 
-      // Replace with your actual submission logic:
-      console.log('Submitting quote request:', {
-        name,
-        email,
-        phone,
-        companyName,
-        cityState,
-        serviceType,
-        description,
-        dimensions,
-        quantity,
-        fileName: selectedFile?.name,
-      });
-      // Example: await fetch('/api/submit-quote', { method: 'POST', body: formData });
+      console.log('Submitting quote request:', Object.fromEntries(formData.entries()));
+      // Replace with actual API call: await fetch('/api/submit-quote', { method: 'POST', body: formData });
 
-      // --- End Quote Submission Logic ---
-
-      // Simulate submission delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
 
       toast.success('Quote request submitted successfully! We will get back to you soon.');
 
@@ -125,7 +103,6 @@ const RequestQuotePage = () => {
   };
 
   React.useEffect(() => {
-    // Cleanup preview URL when component unmounts or file changes
     return () => {
       if (previewUrl) {
         URL.revokeObjectURL(previewUrl);
@@ -203,12 +180,12 @@ const RequestQuotePage = () => {
               />
             </div>
 
-            {/* Phone Number */}
+            {/* Phone Number (Required) */}
             <div>
               <label htmlFor="phone" className="block text-lg font-semibold text-gray-700 mb-2">
                 <div className="flex items-center gap-2">
                   <Phone className="h-5 w-5 text-indigo-600" />
-                  Phone Number (Optional)
+                  Phone Number <span className="text-red-500">*</span>
                 </div>
               </label>
               <input
@@ -217,6 +194,7 @@ const RequestQuotePage = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                required // Added required attribute
                 disabled={isLoading}
                 placeholder="(555) 123-4567"
               />
@@ -242,7 +220,7 @@ const RequestQuotePage = () => {
             </div>
 
              {/* City and State */}
-            <div className="md:col-span-2"> {/* Span across both columns on medium screens */}
+            <div className="md:col-span-2">
               <label htmlFor="cityState" className="block text-lg font-semibold text-gray-700 mb-2">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-indigo-600" />
@@ -260,9 +238,6 @@ const RequestQuotePage = () => {
               />
             </div>
           </div>
-
-          {/* Divider */}
-          {/* <hr className="my-8 border-gray-200" /> */}
 
           {/* Project Details Section */}
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3 pt-4">Project Details</h2>
@@ -310,7 +285,7 @@ const RequestQuotePage = () => {
             />
           </div>
 
-          {/* Conditional Fields (Example for Stickers/Decals) */}
+          {/* Conditional Fields */}
           {(serviceType.includes('Decals') || serviceType.includes('Stickers') || serviceType.includes('Labels') || serviceType.includes('Banners') || serviceType.includes('Apparel')) && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -366,11 +341,11 @@ const RequestQuotePage = () => {
                 type="file"
                 accept="image/*,application/pdf,.ai,.eps,.svg"
                 onChange={handleImageSelect}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" // Ensure input is clickable
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                 disabled={isLoading}
-                id="file-upload" // Add id for label association
+                id="file-upload"
               />
-              <label // Use label for better accessibility and styling
+              <label
                 htmlFor="file-upload"
                 className="block border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-500 transition-colors cursor-pointer"
               >
@@ -405,8 +380,9 @@ const RequestQuotePage = () => {
 
           <button
             type="submit"
-            disabled={isLoading || !name || !email || !serviceType || !description}
-            className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed mt-8" // Added margin-top
+            // Updated disabled condition
+            disabled={isLoading || !name || !email || !phone || !serviceType || !description}
+            className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed mt-8"
           >
             {isLoading ? 'Submitting Request...' : 'Submit Quote Request'}
           </button>

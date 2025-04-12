@@ -6,12 +6,23 @@ export default {
     { pattern: /text-(purple|pink|yellow|green|blue|orange|teal|lime|emerald)-600/ },
     { pattern: /group-hover:bg-(purple|pink|yellow|green|blue|orange|teal|lime|emerald)-600/ },
     { pattern: /group-hover:text-white/ },
+    // Add orange/yellow for the new theme
+    { pattern: /bg-gradient-to-r from-orange-400 to-yellow-400/ },
+    { pattern: /bg-orange-500/ },
+    { pattern: /hover:bg-orange-600/ },
+    { pattern: /text-orange-600/ },
+    { pattern: /border-orange-500/ },
+    { pattern: /ring-orange-500/ },
   ],
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
         sans: ['Inter var', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        'cali-orange': '#F97316', // Example orange
+        'cali-yellow': '#FACC15', // Example yellow
       },
       animation: {
         'gradient': 'gradient 8s linear infinite',
