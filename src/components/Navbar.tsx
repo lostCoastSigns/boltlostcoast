@@ -83,31 +83,9 @@ const Navbar = () => {
             <Link to="/custom" className="nav-link">
               <span>Request a Quote</span>
             </Link>
-            {user ? (
-              <button
-                onClick={handleLogout}
-                className="nav-link"
-              >
-                <LogOut className="h-5 w-5" />
-                <span>Logout</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => setIsAuthModalOpen(true)}
-                className="btn-primary"
-              >
-                <User className="h-5 w-5 mr-2" />
-                <span>Login</span>
-              </button>
-            )}
-            <Link to="/cart" className="nav-link">
-              <ShoppingCart className="h-5 w-5" />
-              <span>Cart</span>
-            </Link>
           </div>
         </div>
       </div>
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </nav>
   );
 };

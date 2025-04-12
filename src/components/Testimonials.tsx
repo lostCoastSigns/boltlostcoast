@@ -40,7 +40,7 @@ const Testimonials: React.FC = () => {
         'I will be back for many more signs. Great place to buy from',
     },
     {
-      author: 'Graham Charleston',
+      author: 'G. Charleston',
       title: '',
       text:
         'Lost Coast Sings and Swag is my go to for sure! Sean and his artists got my banners made last minute in record time and did some great stickers for us too. ' +
@@ -86,14 +86,14 @@ const Testimonials: React.FC = () => {
             <div className="flex snap-x gap-4 py-4">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="snap-start w-full flex-shrink-0 px-4">
-                  <div className="bg-white rounded-lg shadow-md p-6 text-center">
+                  <div className="bg-white rounded-lg shadow-md p-6">
                     <div className="flex items-center justify-center mb-2">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 text-yellow-500" />
                       ))}
                     </div>
-                    <p className="text-gray-700 italic mb-4">"{testimonial.text}"</p>
-                    <div className="flex items-center justify-center">
+                    <p className="text-gray-700 italic mb-4 text-center">"{testimonial.text}"</p>
+                    <div className="flex flex-col items-center">
                       <div className="ml-3">
                         <p className="text-gray-900 font-semibold">{testimonial.author}</p>
                         {testimonial.title && <p className="text-gray-600">{testimonial.title}</p>}
