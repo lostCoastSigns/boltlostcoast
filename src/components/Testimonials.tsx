@@ -40,7 +40,7 @@ const Testimonials: React.FC = () => {
         'I will be back for many more signs. Great place to buy from',
     },
     {
-      author: 'G. Charleston',
+      author: 'Graham Charleston',
       title: '',
       text:
         'Lost Coast Sings and Swag is my go to for sure! Sean and his artists got my banners made last minute in record time and did some great stickers for us too. ' +
