@@ -1,14 +1,29 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Upload, Package, User, LogOut, ChevronDown, Car, Beer, Store, Home as HomeIcon, Star, Calendar, Palette } from 'lucide-react'; // Added new icons
-import AuthModal from './AuthModal';
-import { toast } from 'react-hot-toast';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  ShoppingCart,
+  Upload,
+  Package,
+  User,
+  LogOut,
+  ChevronDown,
+  Car,
+  Beer,
+  Store,
+  Home as HomeIcon,
+  Star,
+  Calendar,
+  Palette,
+} from "lucide-react"; // Added new icons
+import AuthModal from "./AuthModal";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
-  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = React.useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] =
+    React.useState(false);
   const [isShopMegaMenuOpen, setIsShopMegaMenuOpen] = React.useState(false); // State for Shop Mega Menu
   const navigate = useNavigate();
   const megaMenuTimeoutRef = React.useRef<NodeJS.Timeout | null>(null); // Ref for hover delay
@@ -16,23 +31,23 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       // TODO: Implement logout logic
-      toast.success('Logged out successfully');
-      navigate('/');
+      toast.success("Logged out successfully");
+      navigate("/");
     } catch (error) {
-      toast.error('Error logging out');
+      toast.error("Error logging out");
     }
   };
 
   const services = [
-    { name: 'Custom Printing', path: '/services/custom-printing' },
-    { name: 'Signage', path: '/services/signage' },
-    { name: 'Promotional Products', path: '/services/promotional-products' },
-    { name: 'Novelty Items', path: '/services/novelty-items' },
-    { name: 'Banners', path: '/services/banners' },
-    { name: 'Decals', path: '/services/decals' },
-    { name: 'Vehicle Wraps', path: '/services/vehicle-wraps' },
-    { name: 'Graphic Design', path: '/services/graphic-design' },
-    { name: 'Embroidery', path: '/services/embroidery' },
+    { name: "Custom Printing", path: "/services/custom-printing" },
+    { name: "Signage", path: "/services/signage" },
+    { name: "Promotional Products", path: "/services/promotional-products" },
+    { name: "Novelty Items", path: "/services/novelty-items" },
+    { name: "Banners", path: "/services/banners" },
+    { name: "Decals", path: "/services/decals" },
+    { name: "Vehicle Wraps", path: "/services/vehicle-wraps" },
+    { name: "Graphic Design", path: "/services/graphic-design" },
+    { name: "Embroidery", path: "/services/embroidery" },
   ];
 
   // Mega Menu Handlers with Delay
@@ -51,16 +66,16 @@ const Navbar = () => {
 
   // Mega Menu Categories
   const shopCategories = [
-    { name: 'Vehicle Graphics', icon: Car, path: '/shop/vehicle-graphics' },
-    { name: 'Mancave/Novelty', icon: Beer, path: '/shop/novelty' },
-    { name: 'Business Essentials', icon: Store, path: '/shop/business' },
-    { name: 'Home & Gifts', icon: HomeIcon, path: '/shop/home-gifts' },
+    { name: "Vehicle Graphics", icon: Car, path: "/shop/vehicle-graphics" },
+    { name: "Mancave/Novelty", icon: Beer, path: "/shop/novelty" },
+    { name: "Business Essentials", icon: Store, path: "/shop/business" },
+    { name: "Home & Gifts", icon: HomeIcon, path: "/shop/home-gifts" },
   ];
 
   const shopCollections = [
-     { name: 'Staff Picks', icon: Star, path: '/shop/staff-picks' },
-     { name: 'Seasonal Signs', icon: Calendar, path: '/shop/seasonal' },
-     { name: 'Custom Templates', icon: Palette, path: '/shop/templates' },
+    { name: "Staff Picks", icon: Star, path: "/shop/staff-picks" },
+    { name: "Seasonal Signs", icon: Calendar, path: "/shop/seasonal" },
+    { name: "Custom Templates", icon: Palette, path: "/shop/templates" },
   ];
 
   return (
@@ -68,7 +83,9 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center">
-             <span className="text-xl font-bold text-indigo-600">Lost Coast Signs</span>
+            <span className="text-xl font-bold text-indigo-600">
+              Lost Coast Signs
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-4">
@@ -81,10 +98,16 @@ const Navbar = () => {
                 className="nav-link flex items-center"
                 onMouseEnter={() => setIsServicesDropdownOpen(true)}
                 onMouseLeave={() => setIsServicesDropdownOpen(false)}
-                onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                onClick={() =>
+                  setIsServicesDropdownOpen(!isServicesDropdownOpen)
+                }
               >
                 <span>Services</span>
-                <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-4 h-4 ml-1 transition-transform duration-200 ${
+                    isServicesDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
               </button>
               {isServicesDropdownOpen && (
                 <div
@@ -115,7 +138,11 @@ const Navbar = () => {
             </div>
 
             {/* Online Shop Mega Menu */}
-            <div className="relative" onMouseEnter={handleMegaMenuEnter} onMouseLeave={handleMegaMenuLeave}>
+            <div
+              className="relative"
+              onMouseEnter={handleMegaMenuEnter}
+              onMouseLeave={handleMegaMenuLeave}
+            >
               <Link
                 to="/shop" // Link still goes to the main shop page
                 className="nav-link flex items-center"
@@ -123,7 +150,11 @@ const Navbar = () => {
                 aria-expanded={isShopMegaMenuOpen}
               >
                 <span>Online Shop</span>
-                 <ChevronDown className={`w-4 h-4 ml-1 transition-transform duration-200 ${isShopMegaMenuOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-4 h-4 ml-1 transition-transform duration-200 ${
+                    isShopMegaMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
               </Link>
               {isShopMegaMenuOpen && (
                 <div
@@ -135,7 +166,9 @@ const Navbar = () => {
                   <div className="grid grid-cols-2 gap-4 p-5">
                     {/* Main Categories Column */}
                     <div>
-                      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Shop by Category</h3>
+                      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                        Shop by Category
+                      </h3>
                       <div className="space-y-2">
                         {shopCategories.map((category) => (
                           <Link
@@ -145,15 +178,19 @@ const Navbar = () => {
                             onClick={() => setIsShopMegaMenuOpen(false)} // Close on click
                           >
                             <category.icon className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                            <span className="text-sm font-medium text-gray-900">{category.name}</span>
+                            <span className="text-sm font-medium text-gray-900">
+                              {category.name}
+                            </span>
                           </Link>
                         ))}
                       </div>
                     </div>
                     {/* Collections & Featured Column */}
                     <div>
-                       <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Collections</h3>
-                       <div className="space-y-2">
+                      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                        Collections
+                      </h3>
+                      <div className="space-y-2">
                         {shopCollections.map((collection) => (
                           <Link
                             key={collection.name}
@@ -162,7 +199,9 @@ const Navbar = () => {
                             onClick={() => setIsShopMegaMenuOpen(false)} // Close on click
                           >
                             <collection.icon className="w-5 h-5 text-indigo-600 mr-3 flex-shrink-0" />
-                            <span className="text-sm font-medium text-gray-900">{collection.name}</span>
+                            <span className="text-sm font-medium text-gray-900">
+                              {collection.name}
+                            </span>
                           </Link>
                         ))}
                       </div>
@@ -172,15 +211,15 @@ const Navbar = () => {
                       </div> */}
                     </div>
                   </div>
-                   <div className="bg-gray-50 px-5 py-3">
-                      <Link
-                        to="/shop/all"
-                        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                        onClick={() => setIsShopMegaMenuOpen(false)}
-                      >
-                        View All Products &rarr;
-                      </Link>
-                    </div>
+                  <div className="bg-gray-50 px-5 py-3">
+                    <Link
+                      to="/shop/all"
+                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      onClick={() => setIsShopMegaMenuOpen(false)}
+                    >
+                      View All Products &rarr;
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -188,7 +227,13 @@ const Navbar = () => {
             <Link to="/services/promotional-products" className="nav-link">
               <span>Promotional Products</span>
             </Link>
-            <Link to="/custom" className="btn-primary px-4 py-2 text-sm">
+            <Link to="/custom" className="nav-link">
+              <span>Design your own</span>
+            </Link>
+            <Link
+              to="/request-a-quote"
+              className="btn-primary px-4 py-2 text-sm"
+            >
               <span>Request a Quote</span>
             </Link>
           </div>
